@@ -1,0 +1,10 @@
+{
+  "lsp": {
+    "lang": {
+      "typescript": "vtsls"
+    }
+  },
+  "plugins": {
+    "disabled": []
+  }
+}
