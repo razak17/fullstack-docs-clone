@@ -20,6 +20,11 @@ const config = [
 	...tailwind.configs['flat/recommended'],
 	// Add more flat configs here
 	{ ignores: ['.next/*'] },
+	{
+		rules: {
+			'@typescript-eslint/no-unused-vars': 0,
+		},
+	},
 ];
 
 export default config;
