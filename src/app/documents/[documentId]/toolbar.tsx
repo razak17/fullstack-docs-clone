@@ -332,6 +332,102 @@ const ImageButton = () => {
 	);
 };
 
+const AlignButton = () => {
+	const { editor } = useEditorStore();
+
+	const alignments = [
+		{
+			label: 'Align Left',
+			value: 'left',
+			icon: AlignLeftIcon,
+		},
+		{
+			label: 'Align Center',
+			value: 'center',
+			icon: AlignCenterIcon,
+		},
+		{
+			label: 'Align Right',
+			value: 'right',
+			icon: AlignRightIcon,
+		},
+		{
+			label: 'Align Justify',
+			value: 'justify',
+			icon: AlignJustifyIcon,
+		},
+	];
+
+	return (
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<button className='flex h-7 min-w-7 shrink-0 flex-col items-center justify-center overflow-hidden rounded-sm px-1.5 text-sm hover:bg-neutral-200/80'>
+					<AlignLeftIcon className='size-4' />
+				</button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent className='flex flex-col gap-y-1 p-1'>
+				{alignments.map(({ label, value, icon: Icon }) => (
+					<button
+						key={value}
+						onClick={() => editor?.chain().focus().setTextAlign(value).run()}
+						className={cn(
+							'flex items-center gap-x-2 rounded-sm px-2 py-1 hover:bg-neutral-200/80',
+							editor?.isActive({ textAlign: value }) && 'bg-neutral-200/80'
+						)}
+					>
+						<Icon className='size-4' />
+						<span className='text-sm'>{label}</span>
+					</button>
+				))}
+			</DropdownMenuContent>
+		</DropdownMenu>
+	);
+};
+
+const ListButton = () => {
+	const { editor } = useEditorStore();
+
+	const lists = [
+		{
+			label: 'Bullet List',
+			icon: ListIcon,
+			isActive: () => editor?.isActive('bulletList'),
+			onClick: () => editor?.chain().focus().toggleBulletList().run(),
+		},
+		{
+			label: 'Ordered List',
+			icon: ListOrderedIcon,
+			isActive: () => editor?.isActive('orderedList'),
+			onClick: () => editor?.chain().focus().toggleOrderedList().run(),
+		},
+	];
+
+	return (
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<button className='flex h-7 min-w-7 shrink-0 flex-col items-center justify-center overflow-hidden rounded-sm px-1.5 text-sm hover:bg-neutral-200/80'>
+					<ListIcon className='size-4' />
+				</button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent className='flex flex-col gap-y-1 p-1'>
+				{lists.map(({ label, icon: Icon, onClick, isActive }) => (
+					<button
+						key={label}
+						onClick={onClick}
+						className={cn(
+							'flex items-center gap-x-2 rounded-sm px-2 py-1 hover:bg-neutral-200/80',
+							isActive() && 'bg-neutral-200/80'
+						)}
+					>
+						<Icon className='size-4' />
+						<span className='text-sm'>{label}</span>
+					</button>
+				))}
+			</DropdownMenuContent>
+		</DropdownMenu>
+	);
+};
+
 export const Toolbar = () => {
 	const { editor } = useEditorStore();
 
@@ -429,9 +525,9 @@ export const Toolbar = () => {
 			<Separator orientation='vertical' className='h-6 bg-neutral-300' />
 			<LinkButton />
 			<ImageButton />
-			{/* TODO: align */}
+			<AlignButton />
 			{/* TODO: line height */}
-			{/* TODO: list */}
+			<ListButton />
 			{sections[2].map((item) => (
 				<ToolbarButton key={item.label} {...item} />
 			))}
