@@ -17,6 +17,7 @@ import Underline from '@tiptap/extension-underline';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import ImageResize from 'tiptap-extension-resize-image';
+import { FontSizeExtension } from '@/extensions/font-size';
 
 export const Editor = () => {
 	const { setEditor } = useEditorStore();
@@ -78,9 +79,10 @@ export const Editor = () => {
 				autolink: true,
 				defaultProtocol: 'https',
 			}),
-      TextAlign.configure({
-        types: ["heading", "paragraph"]
-      }),
+			TextAlign.configure({
+				types: ['heading', 'paragraph'],
+			}),
+			FontSizeExtension,
 		],
 		content: 'Hello, world!',
 	});
