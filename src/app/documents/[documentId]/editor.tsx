@@ -1,51 +1,52 @@
 'use client';
 
 import { useEditorStore } from '@/store/use-editor-store';
+import { Color } from '@tiptap/extension-color';
+import FontFamily from '@tiptap/extension-font-family';
+import Highlight from '@tiptap/extension-highlight';
+import Link from '@tiptap/extension-link';
 import Table from '@tiptap/extension-table';
 import TableCell from '@tiptap/extension-table-cell';
 import TableHeader from '@tiptap/extension-table-header';
 import TableRow from '@tiptap/extension-table-row';
 import TaskItem from '@tiptap/extension-task-item';
 import TaskList from '@tiptap/extension-task-list';
+import TextStyle from '@tiptap/extension-text-style';
+import Underline from '@tiptap/extension-underline';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import ImageResize from 'tiptap-extension-resize-image';
-import { Color } from '@tiptap/extension-color'
-import Highlight from "@tiptap/extension-highlight"
-import FontFamily from '@tiptap/extension-font-family'
-import TextStyle from '@tiptap/extension-text-style'
-import Underline from '@tiptap/extension-underline'
 
 export const Editor = () => {
-  const { setEditor } = useEditorStore();
+	const { setEditor } = useEditorStore();
 
 	const editor = useEditor({
-    autofocus: true,
-    immediatelyRender: false,
-    onCreate({ editor }) {
-      setEditor(editor);
-    },
-    onDestroy() {
-      setEditor(null);
-    },
-    onUpdate({ editor }) {
-      setEditor(editor)
-    },
-    onSelectionUpdate({ editor }) {
-      setEditor(editor)
-    },
-    onTransaction({ editor }) {
-      setEditor(editor)
-    },
-    onFocus({ editor }) {
-      setEditor(editor)
-    },
-    onBlur({ editor }) {
-      setEditor(editor)
-    },
-    onContentError({ editor }) {
-      setEditor(editor)
-    },
+		autofocus: true,
+		immediatelyRender: false,
+		onCreate({ editor }) {
+			setEditor(editor);
+		},
+		onDestroy() {
+			setEditor(null);
+		},
+		onUpdate({ editor }) {
+			setEditor(editor);
+		},
+		onSelectionUpdate({ editor }) {
+			setEditor(editor);
+		},
+		onTransaction({ editor }) {
+			setEditor(editor);
+		},
+		onFocus({ editor }) {
+			setEditor(editor);
+		},
+		onBlur({ editor }) {
+			setEditor(editor);
+		},
+		onContentError({ editor }) {
+			setEditor(editor);
+		},
 		editorProps: {
 			attributes: {
 				style: 'padding-left: 56px; padding-right: 56px;',
@@ -64,13 +65,18 @@ export const Editor = () => {
 			TableHeader,
 			TableRow,
 			ImageResize,
-      Color,
-      Highlight.configure({
-        multicolor: true,
-      }),
-      FontFamily,
-      TextStyle,
-      Underline,
+			Color,
+			Highlight.configure({
+				multicolor: true,
+			}),
+			FontFamily,
+			TextStyle,
+			Underline,
+			Link.configure({
+				openOnClick: false,
+				autolink: true,
+				defaultProtocol: 'https',
+			}),
 		],
 		content: 'Hello, world!',
 	});

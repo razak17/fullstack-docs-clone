@@ -5,6 +5,8 @@ import { cn } from '@/lib/utils';
 import { type Level } from '@tiptap/extension-heading';
 import { useEditorStore } from '@/store/use-editor-store';
 import { type ColorResult, SketchPicker } from 'react-color';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
 	AlignCenterIcon,
 	AlignJustifyIcon,
@@ -39,6 +41,14 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import {
+	Dialog,
+	DialogContent,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+} from '@/components/ui/dialog';
+import { useState } from 'react';
 
 const ToolbarButton = ({
 	onClick,
@@ -211,6 +221,117 @@ const HighlightColorButton = () => {
 	);
 };
 
+const LinkButton = () => {
+	const { editor } = useEditorStore();
+	const [value, setValue] = useState('');
+
+	const onChange = (href: string) => {
+		editor?.chain().focus().extendMarkRange('link').setLink({ href }).run();
+		setValue('');
+	};
+
+	return (
+		<DropdownMenu
+			onOpenChange={(open) => {
+				if (open) {
+					setValue(editor?.getAttributes('link').href || '');
+				}
+			}}
+		>
+			<DropdownMenuTrigger asChild>
+				<button className='flex h-7 min-w-7 shrink-0 flex-col items-center justify-center overflow-hidden rounded-sm px-1.5 text-sm hover:bg-neutral-200/80'>
+					<Link2Icon className='size-4' />
+				</button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent className='flex items-center gap-x-2 p-2.5'>
+				<Input
+					placeholder='https://example.com'
+					value={value}
+					onChange={(e) => setValue(e.target.value)}
+				/>
+				<Button onClick={() => onChange(value)}>Apply</Button>
+			</DropdownMenuContent>
+		</DropdownMenu>
+	);
+};
+
+const ImageButton = () => {
+	const { editor } = useEditorStore();
+	const [isDialogOpen, setIsDialogOpen] = useState(false);
+	const [imageUrl, setImageUrl] = useState('');
+
+	const onChange = (src: string) => {
+		editor?.chain().focus().setImage({ src }).run();
+	};
+
+	const onUpload = () => {
+		const input = document.createElement('input');
+		input.type = 'file';
+		input.accept = 'image/*';
+
+		input.onchange = (e) => {
+			const file = (e.target as HTMLInputElement).files?.[0];
+			if (file) {
+				const imageUrl = URL.createObjectURL(file);
+				onChange(imageUrl);
+			}
+		};
+
+		input.click();
+	};
+
+	const handleImageUrlSubmit = () => {
+		if (imageUrl) {
+			onChange(imageUrl);
+			setImageUrl('');
+			setIsDialogOpen(false);
+		}
+	};
+
+	return (
+		<>
+			<DropdownMenu>
+				<DropdownMenuTrigger asChild>
+					<button className='flex h-7 min-w-7 shrink-0 flex-col items-center justify-center overflow-hidden rounded-sm px-1.5 text-sm hover:bg-neutral-200/80'>
+						<ImageIcon className='size-4' />
+					</button>
+				</DropdownMenuTrigger>
+				<DropdownMenuContent>
+					<DropdownMenuItem onClick={onUpload}>
+						<UploadIcon className='mr-2 size-4' />
+						Upload
+					</DropdownMenuItem>
+					<DropdownMenuItem onClick={() => setIsDialogOpen(true)}>
+						<SearchIcon className='mr-2 size-4' />
+						Paste image url
+					</DropdownMenuItem>
+				</DropdownMenuContent>
+			</DropdownMenu>
+
+			<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+				<DialogContent>
+					<DialogHeader>
+						<DialogTitle>Insert image URL</DialogTitle>
+					</DialogHeader>
+					<Input
+						placeholder='Insert image URL'
+						value={imageUrl}
+						onChange={(e) => setImageUrl(e.target.value)}
+						onKeyDown={(e) => {
+							if (e.key === 'Enter') {
+								handleImageUrlSubmit();
+							}
+						}}
+					/>
+					<DialogFooter>
+						<Button onClick={handleImageUrlSubmit}>Insert</Button>
+					</DialogFooter>
+				</DialogContent>
+			</Dialog>
+		</>
+	);
+};
+
 export const Toolbar = () => {
 	const { editor } = useEditorStore();
 
@@ -306,8 +427,8 @@ export const Toolbar = () => {
 			<TextColorButton />
 			<HighlightColorButton />
 			<Separator orientation='vertical' className='h-6 bg-neutral-300' />
-			{/* TODO: link */}
-			{/* TODO: image */}
+			<LinkButton />
+			<ImageButton />
 			{/* TODO: align */}
 			{/* TODO: line height */}
 			{/* TODO: list */}
