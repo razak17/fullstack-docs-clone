@@ -1,10 +1,10 @@
 import { Document } from './document';
 
-type DocumentPageProps = {
+const DocumentPage = async ({
+	params,
+}: {
 	params: Promise<{ documentId: string }>;
-};
-
-const DocumentPage = async ({ params }: DocumentPageProps) => {
+}) => {
 	return <Document />;
 };
 
