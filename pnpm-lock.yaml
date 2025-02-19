@@ -253,6 +253,9 @@ devDependencies:
   prettier-plugin-tailwindcss:
     specifier: ^0.6.9
     version: 0.6.9(prettier@3.4.2)
+  react-icons:
+    specifier: ^5.5.0
+    version: 5.5.0(react@19.0.0-rc-66855b96-20241106)
   tailwindcss:
     specifier: ^3.4.1
     version: 3.4.17
@@ -5119,6 +5122,14 @@ packages:
       react: 19.0.0-rc-66855b96-20241106
     dev: false
 
+  /react-icons@5.5.0(react@19.0.0-rc-66855b96-20241106):
+    resolution: {integrity: sha512-MEFcXdkP3dLo8uumGI5xN3lDFNsRtrjbOEKDLD7yv76v4wpnEq2Lt2qeHaQOr34I/wPN3s3+N08WkQ+CW37Xiw==}
+    peerDependencies:
+      react: '*'
+    dependencies:
+      react: 19.0.0-rc-66855b96-20241106
+    dev: true
+
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -5236,7 +5247,6 @@ packages:
   /react@19.0.0-rc-66855b96-20241106:
     resolution: {integrity: sha512-klH7xkT71SxRCx4hb1hly5FJB21Hz0ACyxbXYAECEqssUjtJeFUAaI2U1DgJAzkGEnvEm3DkxuBchMC/9K4ipg==}
     engines: {node: '>=0.10.0'}
-    dev: false
 
   /reactcss@1.2.3(react@19.0.0-rc-66855b96-20241106):
     resolution: {integrity: sha512-KiwVUcFu1RErkI97ywr8nvx8dNOpT03rbnma0SSalTYjkrPYaEajR4a/MRt6DZ46K6arDRbWMNHF+xH7G7n/8A==}
