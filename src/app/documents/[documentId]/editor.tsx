@@ -1,5 +1,7 @@
 'use client';
 
+import { FontSizeExtension } from '@/extensions/font-size';
+import { LineHeightExtension } from '@/extensions/line-height';
 import { useEditorStore } from '@/store/use-editor-store';
 import { Color } from '@tiptap/extension-color';
 import FontFamily from '@tiptap/extension-font-family';
@@ -17,7 +19,6 @@ import Underline from '@tiptap/extension-underline';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import ImageResize from 'tiptap-extension-resize-image';
-import { FontSizeExtension } from '@/extensions/font-size';
 
 export const Editor = () => {
 	const { setEditor } = useEditorStore();
@@ -83,8 +84,10 @@ export const Editor = () => {
 				types: ['heading', 'paragraph'],
 			}),
 			FontSizeExtension,
+			LineHeightExtension,
 		],
-		content: 'Hello, world!',
+		content:
+			'Commodi laborum voluptates. Est quaerat inventore ratione qui molestiae. Eum non magnam maiores autem. Quisquam ducimus similique quia velit. Error nulla dolorem eligendi quod. Commodi laborum voluptates. Est quaerat inventore ratione qui molestiae. Eum non magnam maiores autem. Quisquam ducimus similique quia velit. Error nulla dolorem eligendi quod. Commodi laborum voluptates. Est quaerat inventore ratione qui molestiae. Eum non magnam maiores autem. Quisquam ducimus similique quia velit. Error nulla dolorem eligendi quod. Commodi laborum voluptates. Est quaerat inventore ratione qui molestiae. Eum non magnam maiores autem. Quisquam ducimus similique quia velit. Error nulla dolorem eligendi quod. Commodi laborum voluptates. Est quaerat inventore ratione qui molestiae. Eum non magnam maiores autem. Quisquam ducimus similique quia velit. Error nulla dolorem eligendi quod. Commodi laborum voluptates. Est quaerat inventore ratione qui molestiae. Eum non magnam maiores autem. Quisquam ducimus similique quia velit. Error nulla dolorem eligendi quod. Commodi laborum voluptates. Est quaerat inventore ratione qui molestiae. Eum non magnam maiores autem. Quisquam ducimus similique quia velit. Error nulla dolorem eligendi quod. Commodi laborum voluptates. Est quaerat inventore ratione qui molestiae. Eum non magnam maiores autem. Quisquam ducimus similique quia velit. Error nulla dolorem eligendi quod.',
 	});
 	return (
 		<div className='size-full overflow-x-auto bg-[#F9FBFD] px-4 print:overflow-visible print:bg-white print:p-0'>
