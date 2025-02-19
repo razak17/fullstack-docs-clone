@@ -1,10 +1,13 @@
 {
-  "lsp": {
-    "lang": {
-      "typescript": "vtsls"
-    }
-  },
-  "plugins": {
-    "disabled": []
-  }
+	"lsp": {
+		"lang": {
+			"typescript": "typescript-tools"
+		},
+		"disabled": {
+			"servers": ["tailwindcss", "eslint", "emmet_language_server"]
+		}
+	},
+	"plugins": {
+		"disabled": []
+	}
 }
