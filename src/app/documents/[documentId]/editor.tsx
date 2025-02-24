@@ -23,6 +23,7 @@ import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import ImageResize from 'tiptap-extension-resize-image';
 import { Ruler } from './ruler';
+import { Threads } from './threads';
 
 interface EditorProps {
 	initialContent?: string | undefined;
@@ -74,9 +75,9 @@ export const Editor = ({ initialContent }: EditorProps) => {
 			},
 		},
 		extensions: [
-      StarterKit.configure({
-        history: false,
-      }),
+			StarterKit.configure({
+				history: false,
+			}),
 			TaskItem.configure({
 				nested: true,
 			}),
@@ -112,6 +113,7 @@ export const Editor = ({ initialContent }: EditorProps) => {
 			<Ruler />
 			<div className='mx-auto flex w-[816px] min-w-max justify-center py-4 print:w-full print:min-w-0 print:py-0'>
 				<EditorContent editor={editor} />
+				<Threads editor={editor} />
 			</div>
 		</div>
 	);
