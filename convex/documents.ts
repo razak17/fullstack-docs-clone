@@ -14,6 +14,7 @@ export const create = mutation({
 			throw new ConvexError('Unathorized');
 		}
 
+		console.log('DEBUGPRINT[397]: documents.ts:17: user=', user);
 		const organizationId = (user.organization_id ?? undefined) as
 			| string
 			| undefined;
