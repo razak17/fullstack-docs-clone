@@ -42,7 +42,6 @@ export function Room({ children }: { children: ReactNode }) {
 			authEndpoint={async () => {
 				const endpoint = '/api/liveblocks-auth';
 				const room = params.documentId as string;
-				console.warn('DEBUGPRINT[403]: room.tsx:48: room=', room);
 
 				const response = await fetch(endpoint, {
 					method: 'POST',
