@@ -20,8 +20,8 @@ const Home = () => {
 			</div>
 			<div className='mt-16'>
 				<TemplatesGallery />
-				{isLoading ? (
-					<div className='mt-6 flex justify-center gap-2'>
+				{isLoading && results?.length === 0 ? (
+					<div className='mt-12 flex justify-center gap-2'>
 						<LoaderIcon className='size-6 animate-spin text-muted-foreground' />
 						<p className='text-sm text-muted-foreground'>Loading...</p>
 					</div>
