@@ -1,6 +1,9 @@
+'use client';
+
+import { useQuery } from 'convex/react';
+import { api } from '../../../convex/_generated/api';
 import { Navbar } from './navbar';
 import { TemplatesGallery } from './templates-gallery';
-import { useQuery } from 'convex/react';
 
 const Home = () => {
 	const documents = useQuery(
