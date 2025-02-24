@@ -1,5 +1,6 @@
 'use client';
 
+import { useSearchParam } from '@/hooks/use-search-param';
 import { usePaginatedQuery } from 'convex/react';
 import { LoaderIcon } from 'lucide-react';
 import { api } from '../../../convex/_generated/api';
@@ -8,11 +9,13 @@ import { Navbar } from './navbar';
 import { TemplatesGallery } from './templates-gallery';
 
 const Home = () => {
+	const [search] = useSearchParam();
 	const { results, status, isLoading, loadMore } = usePaginatedQuery(
 		api.documents.get,
-		{},
+		{ search },
 		{ initialNumItems: 5 }
 	);
+
 	return (
 		<div className='flex min-h-screen flex-col'>
 			<div className='fixed left-0 right-0 top-0 z-10 h-16 bg-white p-4'>

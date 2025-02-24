@@ -32,7 +32,7 @@ export const get = query({
 		paginationOpts: paginationOptsValidator,
 		search: v.optional(v.string()),
 	},
-	handler: async (ctx, { paginationOpts }) => {
+	handler: async (ctx, { search, paginationOpts }) => {
 		const user = await ctx.auth.getUserIdentity();
 
 		if (!user) {
@@ -42,6 +42,26 @@ export const get = query({
 		const organizationId = (user.organization_id ?? undefined) as
 			| string
 			| undefined;
+
+		// Search within organization
+		if (search && organizationId) {
+			return await ctx.db
+				.query('documents')
+				.withSearchIndex('search_title', (q) =>
+					q.search('title', search).eq('organizationId', organizationId)
+				)
+				.paginate(paginationOpts);
+		}
+
+		// Personal search
+		if (search) {
+			return await ctx.db
+				.query('documents')
+				.withSearchIndex('search_title', (q) =>
+					q.search('title', search).eq('ownerId', user.subject)
+				)
+				.paginate(paginationOpts);
+		}
 
 		// All docs inside organization
 		if (organizationId) {
