@@ -1,35 +1,35 @@
 'use client';
 
 import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarSeparator,
-  MenubarShortcut,
-  MenubarSub,
-  MenubarSubContent,
-  MenubarSubTrigger,
-  MenubarTrigger,
+	Menubar,
+	MenubarContent,
+	MenubarItem,
+	MenubarMenu,
+	MenubarSeparator,
+	MenubarShortcut,
+	MenubarSub,
+	MenubarSubContent,
+	MenubarSubTrigger,
+	MenubarTrigger,
 } from '@/components/ui/menubar';
 import { useEditorStore } from '@/store/use-editor-store';
 import { OrganizationSwitcher, UserButton } from '@clerk/nextjs';
 import { useMutation } from 'convex/react';
 import {
-  BoldIcon,
-  FileIcon,
-  FileJsonIcon,
-  FilePlusIcon,
-  FileTextIcon,
-  GlobeIcon,
-  ItalicIcon,
-  PrinterIcon,
-  Redo2Icon,
-  RemoveFormattingIcon,
-  StrikethroughIcon,
-  TextIcon,
-  UnderlineIcon,
-  Undo2Icon
+	BoldIcon,
+	FileIcon,
+	FileJsonIcon,
+	FilePlusIcon,
+	FileTextIcon,
+	GlobeIcon,
+	ItalicIcon,
+	PrinterIcon,
+	Redo2Icon,
+	RemoveFormattingIcon,
+	StrikethroughIcon,
+	TextIcon,
+	UnderlineIcon,
+	Undo2Icon,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -40,6 +40,7 @@ import { api } from '../../../../convex/_generated/api';
 import { Doc } from '../../../../convex/_generated/dataModel';
 import { Avatars } from './avatars';
 import { DocumentInput } from './document-input';
+import { Inbox } from './inbox';
 
 type NavbarProps = {
 	data: Doc<'documents'>;
@@ -289,7 +290,8 @@ export const Navbar = () => {
 				</div>
 			</div>
 			<div className='flex items-center gap-3 pl-6'>
-        <Avatars />
+				<Avatars />
+				<Inbox />
 				<OrganizationSwitcher
 					afterCreateOrganizationUrl='/'
 					afterLeaveOrganizationUrl='/'
