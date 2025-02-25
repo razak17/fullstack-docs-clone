@@ -1,5 +1,7 @@
 'use client';
 
+import { RemoveDialog } from '@/components/remove-dialog';
+import { RenameDialog } from '@/components/rename-dialog';
 import {
 	Menubar,
 	MenubarContent,
@@ -19,6 +21,7 @@ import {
 	BoldIcon,
 	FileIcon,
 	FileJsonIcon,
+	FilePenIcon,
 	FilePlusIcon,
 	FileTextIcon,
 	GlobeIcon,
@@ -28,6 +31,7 @@ import {
 	RemoveFormattingIcon,
 	StrikethroughIcon,
 	TextIcon,
+	TrashIcon,
 	UnderlineIcon,
 	Undo2Icon,
 } from 'lucide-react';
@@ -46,7 +50,7 @@ type NavbarProps = {
 	data: Doc<'documents'>;
 };
 
-export const Navbar = () => {
+export const Navbar = ({ data }: NavbarProps) => {
 	const router = useRouter();
 	const { editor } = useEditorStore();
 	const mutation = useMutation(api.documents.create);
@@ -86,7 +90,7 @@ export const Navbar = () => {
 		const blob = new Blob([JSON.stringify(content)], {
 			type: 'application/json',
 		});
-		// onDownload(blob, `${data.title}.json`);
+		onDownload(blob, `${data.title}.json`);
 	};
 
 	const onSaveHTML = () => {
@@ -96,7 +100,7 @@ export const Navbar = () => {
 		const blob = new Blob([content], {
 			type: 'text/html',
 		});
-		// onDownload(blob, `${data.title}.html`);
+		onDownload(blob, `${data.title}.html`);
 	};
 
 	const onSaveText = () => {
@@ -106,7 +110,7 @@ export const Navbar = () => {
 		const blob = new Blob([content], {
 			type: 'text/plain',
 		});
-		// onDownload(blob, `${data.title}.txt`);
+		onDownload(blob, `${data.title}.txt`);
 	};
 
 	return (
@@ -116,7 +120,7 @@ export const Navbar = () => {
 					<Image src='/logo.svg' alt='Logo' width={36} height={36} />
 				</Link>
 				<div className='flex flex-col'>
-					<DocumentInput />
+          <DocumentInput title={data.title} id={data._id} />
 					<div className='flex'>
 						<Menubar className='h-auto border-none bg-transparent p-0 shadow-none'>
 							<MenubarMenu>
@@ -153,24 +157,24 @@ export const Navbar = () => {
 										New Document
 									</MenubarItem>
 									<MenubarSeparator />
-									{/* <RenameDialog documentId={data._id} initialTitle={data.title}> */}
-									{/* 	<MenubarItem */}
-									{/* 		onClick={(e) => e.stopPropagation()} */}
-									{/* 		onSelect={(e) => e.preventDefault()} */}
-									{/* 	> */}
-									{/* 		<FilePenIcon className='mr-2 size-4' /> */}
-									{/* 		Rename */}
-									{/* 	</MenubarItem> */}
-									{/* </RenameDialog> */}
-									{/* <RemoveDialog documentId={data._id}> */}
-									{/* 	<MenubarItem */}
-									{/* 		onClick={(e) => e.stopPropagation()} */}
-									{/* 		onSelect={(e) => e.preventDefault()} */}
-									{/* 	> */}
-									{/* 		<TrashIcon className='mr-2 size-4' /> */}
-									{/* 		Remove */}
-									{/* 	</MenubarItem> */}
-									{/* </RemoveDialog> */}
+									<RenameDialog documentId={data._id} initialTitle={data.title}>
+										<MenubarItem
+											onClick={(e) => e.stopPropagation()}
+											onSelect={(e) => e.preventDefault()}
+										>
+											<FilePenIcon className='mr-2 size-4' />
+											Rename
+										</MenubarItem>
+									</RenameDialog>
+									<RemoveDialog documentId={data._id}>
+										<MenubarItem
+											onClick={(e) => e.stopPropagation()}
+											onSelect={(e) => e.preventDefault()}
+										>
+											<TrashIcon className='mr-2 size-4' />
+											Remove
+										</MenubarItem>
+									</RemoveDialog>
 									<MenubarSeparator />
 									<MenubarItem onClick={() => window.print()}>
 										<PrinterIcon className='mr-2 size-4' />
