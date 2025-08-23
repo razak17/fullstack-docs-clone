@@ -80,6 +80,7 @@
       "!**/build",
       "!**/public",
       "!**/.turbo",
+      "!convex/_generated",
       "**/.next"
     ]
   }

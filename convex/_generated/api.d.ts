@@ -1,6 +1,4 @@
-/** biome-ignore-all lint/a11y/noStaticElementInteractions: disable */
-/** biome-ignore-all lint/suspicious/noExplicitAny: disable */
-
+/* eslint-disable */
 /**
  * Generated `api` utility.
  *
@@ -15,7 +13,6 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
-
 import type * as documents from "../documents.js";
 
 /**
